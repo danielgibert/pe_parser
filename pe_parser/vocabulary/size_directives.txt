@@ -1,0 +1,6 @@
+directive
+byte
+word
+dword
+ptr
+short

@@ -1,0 +1,17 @@
+register
+eax
+ax
+ebx
+bx
+ecx
+cx
+edx
+dx
+al
+ah
+bl
+bh
+cl
+ch
+dl
+dh

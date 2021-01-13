@@ -1,0 +1,9 @@
+register
+eax
+ax
+ebx
+bx
+ecx
+cx
+edx
+dx
