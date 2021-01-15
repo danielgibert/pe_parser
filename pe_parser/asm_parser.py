@@ -5,6 +5,8 @@ from pe_parser.utils import header_asm_sections, header_asm_data_define
 from pe_parser.assembly_language_instructions_parser import AssemblyLanguageInstructionsParser
 from pe_parser.x86_asm_intermediate_representation import AssemblyLanguageSourceCode
 from pe_parser.x86_types import x86Type
+import array
+
 
 class AssemblyParser:
     def __init__(self):
@@ -124,8 +126,8 @@ class AssemblyParser:
         symbol_features["ASM_SYMBOLS_*"] = symbols[0]
         symbol_features["ASM_SYMBOLS_-"] = symbols[1]
         symbol_features["ASM_SYMBOLS_+"] = symbols[2]
-        symbol_features["ASM_SYMBOLS_["] = symbols[3]
-        symbol_features["ASM_SYMBOLS_]"] = symbols[4]
+        symbol_features["ASM_SYMBOLS_left_bracket"] = symbols[3]
+        symbol_features["ASM_SYMBOLS_right_bracket"] = symbols[4]
         symbol_features["ASM_SYMBOLS_@"] = symbols[5]
         symbol_features["ASM_SYMBOLS_?"] = symbols[6]
         self.symbol_features = symbol_features
@@ -461,6 +463,33 @@ class AssemblyParser:
             self.data_define_features = collections.OrderedDict(
                 {"ASM_SECTION_{}".format(feature_names[i]): feature_values[i] for i in range(len(feature_names))})
             return self.data_define_features
+            return self.data_define_features
+            # helper methods
+
+    def convert_asm_to_img(self):
+        import codecs
+        f = codecs.open(self.asm_filepath, "rb")
+        ln = os.path.getsize(self.asm_filepath)
+        width = int(ln**0.5)
+        rem = int(ln/width)
+        a = array.array("B")
+        a.frombytes(f.read())
+        f.close()
+        g = np.reshape(a[:width*width], (width, width))
+        self.asm_img = np.uint(g)
+        return self.asm_img
+
+    def extract_pixel_intensities(self, num_pixels=800, asm_img=None):
+        self.pixel_intensity_features = collections.OrderedDict()
+        if asm_img is None:
+            asm_img = self.asm_img
+        flattened_img = asm_img.flatten()
+        for i in range(num_pixels):
+            self.pixel_intensity_features["ASM_PIXEL_{}th".format(i)] = flattened_img[i]
+        return self.pixel_intensity_features
+
+
+
 
 
 

@@ -214,19 +214,20 @@ class HexParser:
         self.haralick_features = haralick_features
         return haralick_features
 
-    def calculate_LBP_features(self, grayscale_imge=None):
+    def calculate_LBP_features(self, grayscale_img):
         """
         Calculate Local Binary Pattern features from a grayscale image
         :param grayscale_imge: np.array
         :return: dict of features
         """
         lbp_features = collections.OrderedDict()
-        lbp_points = mahotas.features.lbp(grayscale_imge, 10, 10, ignore_zeros=False)
+        lbp_points = mahotas.features.lbp(grayscale_img, 10, 10, ignore_zeros=False)
         for i in range(len(lbp_points.tolist())):
             lbp_features["BYTE_IMG_lbp_f{}".format(i)] = lbp_points.tolist()[i]
         self.lbp_features = lbp_features
         return lbp_features
 
+    def calculate_GIST_features(self, grayscale_img):
 
 
 
