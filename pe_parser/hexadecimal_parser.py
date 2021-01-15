@@ -227,8 +227,6 @@ class HexParser:
         self.lbp_features = lbp_features
         return lbp_features
 
-    def calculate_GIST_features(self, grayscale_img):
-
 
 
 
