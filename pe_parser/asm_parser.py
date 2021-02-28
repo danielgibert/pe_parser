@@ -14,6 +14,7 @@ class AssemblyParser:
         self.asm_filepath = None
         self.metadata_features = None
         self.symbol_features = None
+        self.register_features = None
         self.api_features = None
         self.misc_features = None
         self.section_features = None
@@ -26,6 +27,7 @@ class AssemblyParser:
         self.asm_filepath = asm_filepath
         self.metadata_features = None
         self.symbol_features = None
+        self.register_features = None
         self.api_features = None
         self.misc_features = None
         self.section_features = None
@@ -171,6 +173,28 @@ class AssemblyParser:
                         break
         self.opcode_features = opcode_features
         return opcode_features
+
+    def extract_register_features(self, registers=None):
+        if registers is None:
+            registers = []
+            with open(os.path.dirname(os.path.abspath(__file__))+"/vocabulary/registers.txt") as registers_file:
+                lines = registers_file.readlines()
+                for line in lines[1:]:
+                    register = line.strip()
+                    registers.append(register)
+        register_features = collections.OrderedDict({"ASM_REG_{}".format(register): 0 for register in registers})
+        print(register_features.keys())
+        with open(self.asm_filepath, "r", encoding="ISO-8859-1") as asm_file:
+            asm_code = asm_file.readlines()
+            for row in asm_code:
+                parts = row.split()
+                for register in registers:
+                    if register in parts:
+                        register_features["ASM_REG_{}".format(register)] += 1
+                        break
+        print(register_features)
+        self.register_features = register_features
+        return register_features
 
     def extract_API_features(self, APIs=None):
         """
