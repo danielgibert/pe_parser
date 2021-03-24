@@ -485,8 +485,7 @@ class AssemblyParser:
             feature_names = header_asm_data_define()
 
             self.data_define_features = collections.OrderedDict(
-                {"ASM_SECTION_{}".format(feature_names[i]): feature_values[i] for i in range(len(feature_names))})
-            return self.data_define_features
+                {"ASM_DD_{}".format(feature_names[i]): feature_values[i] for i in range(len(feature_names))})
             return self.data_define_features
             # helper methods
 

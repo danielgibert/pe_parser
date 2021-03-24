@@ -80,14 +80,14 @@ class HexParser:
         metadata = collections.OrderedDict()
         statinfo = os.stat(self.hex_filepath)
         fileSize = statinfo.st_size
-        metadata["BYTE_FileSize"] = fileSize
+        metadata["BYTE_MD_FileSize"] = fileSize
 
         # StartAddress
         with open(self.hex_filepath, "r") as hex_file:
             first_line = hex_file.readline().split()
             offset = first_line[0]
             dec = int(offset, 16)
-            metadata["Byte_FirstBytes"] = dec
+            metadata["Byte_MD_FirstBytes"] = dec
         self.metadata = metadata
         return metadata
 
