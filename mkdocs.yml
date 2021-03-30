@@ -1,6 +1,7 @@
-site_name: PE Parser Documentation
+site_name: PE Extractor Documentation
 nav:
   - Home: index.md
+  - Contributors: contributors.md
   - License: license.md
   - About: about.md
 theme: readthedocs
