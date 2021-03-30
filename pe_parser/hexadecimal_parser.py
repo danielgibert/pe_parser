@@ -43,7 +43,6 @@ class HexParser:
         ------
             hex_values: list
                 List of hexadecimal values
-        :return: list of hex values
         """
         hex_values = []
         with open(self.hex_filepath) as hex_file:
@@ -61,9 +60,17 @@ class HexParser:
         Converts the hexadecimal values to integers. If preprocess is True, the '??' values are converted to 256.
         Otherwise, they are removed from the sequence.
 
-        :param preprocess: boolean
-        :param hex_values: list of hex values
-        :return: list of integers
+        Parameters
+        ----------
+            preprocess: bool
+                Whether or not to remove '??'
+            hex_values: list
+                List of hexadecimal values
+
+        Return
+        ---------
+            int_values: list
+                List of hexadecimal values converted to int [0,255]
         """
         if hex_values is None:
             hex_values = self.hex_values
@@ -79,7 +86,11 @@ class HexParser:
         Extracts metadata information. That is, the size of the file, and the address of the firstbytes sequence.
         The address is an hexadecimal number, and we converted it to the corresponding decimalvalue for homogeneity
         with the other features values.
-        :return: dict of features
+
+        Return
+        ---------
+            metadata: collections.OrderedDict()
+                Dictionary of features
         """
         metadata = collections.OrderedDict()
         statinfo = os.stat(self.hex_filepath)
@@ -95,13 +106,24 @@ class HexParser:
         self.metadata = metadata
         return metadata
 
-    def extract_byte_unigram_features(self):
+    def extract_byte_unigram_features(self, hex_values=None):
         """
         Extract unigram features
-        :return: dict containing the frequency of each hexadecimal value
+
+        Parameters
+        ----------
+            hex_values: list
+                List of hexadecimal values
+
+        Return
+        ---------
+            unigram_features: collections.OrderedDict()
+                Dictionary of features
         """
+        if hex_values is None:
+            hex_values = self.hex_values
         unigram_features = collections.OrderedDict()
-        fdist = nltk.FreqDist([hex_value for hex_value in self.hex_values if hex_value != '??'])
+        fdist = nltk.FreqDist([hex_value for hex_value in hex_values if hex_value != '??'])
 
         # Ensure that all bytes are counter including those not appearing in the hex values sequence
         for i in range(0, 17):
@@ -123,7 +145,11 @@ class HexParser:
     def extract_entropy_features(self, hex_values=None, chunk_size=1024):
         """
         Calculates percentiles, mean, variance, median, max, min
-        :return: dict of features
+
+        Return
+        ---------
+            unigram_features: collections.OrderedDict()
+                Dictionary of features
         """
         entropy_features = collections.OrderedDict()
         if hex_values is None:
@@ -202,11 +228,19 @@ class HexParser:
         self.grayscale_img = grayscale_img
         return grayscale_img
 
-    def calculate_haralick_features(self, grayscale_img):
+    def calculate_haralick_features(self, grayscale_img: np.array):
         """
         Calculate Haralick features from a grayscale image
-        :param grayscale_img: np.array
-        :return: dict of features
+
+        Parameters
+        ----------
+            grayscale_img: np.array
+                Grayscale image of the file
+
+        Return
+        ---------
+            haralick_features: collections.OrderedDict()
+                Dictionary of features
         """
         haralick_features = collections.OrderedDict()
         h_features = mahotas.features.haralick(grayscale_img)
@@ -218,11 +252,19 @@ class HexParser:
         self.haralick_features = haralick_features
         return haralick_features
 
-    def calculate_LBP_features(self, grayscale_img):
+    def calculate_LBP_features(self, grayscale_img: np.array):
         """
         Calculate Local Binary Pattern features from a grayscale image
-        :param grayscale_imge: np.array
-        :return: dict of features
+
+        Parameters
+        ----------
+            grayscale_img: np.array
+                Grayscale image of the file
+
+        Return
+        ---------
+            haralick_features: collections.OrderedDict()
+                Dictionary of features
         """
         lbp_features = collections.OrderedDict()
         lbp_points = mahotas.features.lbp(grayscale_img, 10, 10, ignore_zeros=False)

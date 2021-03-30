@@ -90,14 +90,14 @@ class AssemblyParser:
                 last_instruction = assembly_language_statements[i].instruction_statement
         return reduced_assembly_language_statements
 
-    def get_opcodes_data_as_list(self, vocabulary_mapping: dict):
+    def get_opcodes_data_as_list(self, vocabulary_mapping: None):
         """
         Extracts the list of opcodes from the assembly language instructions of a PE file.
 
         Parameters
         ----------
             vocabulary_mapping: dict
-                Dictionary containing a mapping between opcodes and IDs
+                Mapping between opcodes and ID
         Return
         ---------
             opcodes: list
@@ -246,7 +246,7 @@ class AssemblyParser:
                     register = line.strip()
                     registers.append(register)
         register_features = collections.OrderedDict({"ASM_REG_{}".format(register): 0 for register in registers})
-        print(register_features.keys())
+        #print(register_features.keys())
         with open(self.asm_filepath, "r", encoding="ISO-8859-1") as asm_file:
             asm_code = asm_file.readlines()
             for row in asm_code:
@@ -255,7 +255,7 @@ class AssemblyParser:
                     if register in parts:
                         register_features["ASM_REG_{}".format(register)] += 1
                         break
-        print(register_features)
+        #print(register_features)
         self.register_features = register_features
         return register_features
 
