@@ -1,0 +1,3 @@
+# Contributors
+
+PE Parser was developed by Daniel Gibert...

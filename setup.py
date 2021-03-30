@@ -1,5 +1,5 @@
 from setuptools import setup, find_packages
-requires = ['nltk', 'mahotas']
+requires = ['nltk', 'mahotas', 'matplotlib']
 
 setup(name='pe_parser',
       version='0.1',
