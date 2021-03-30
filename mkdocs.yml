@@ -1,0 +1,6 @@
+site_name: PE Parser Documentation
+nav:
+  - Home: index.md
+  - About: about.md
+theme: readthedocs
+
