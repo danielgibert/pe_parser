@@ -4,16 +4,21 @@ import csv
 import sys
 from pe_parser.x86_instr import x86Instr
 from pe_parser.x86_types import x86Type
-
-def read_tokens_from_csv(csv_filepath, header):
-    with open(csv_filepath) as input_file:
-        reader = csv.DictReader(input_file)
-        return {row[header] for row in reader}
-
+from pe_parser.utils import read_tokens_from_csv
 
 class AssemblyLanguageInstructionsParser(object):
-    def __init__(self, filepath):
-        #Check that the file exists
+    """
+    Assembly Language Parser object
+    """
+    def __init__(self, filepath: str):
+        """
+        Class constructor
+
+        Parameters
+        ----------
+            filepath: str
+                Filepath of the assembly language source code file
+        """
         if not os.path.isfile(filepath):
             raise IOError
         self.pe_filepath = filepath
@@ -24,6 +29,21 @@ class AssemblyLanguageInstructionsParser(object):
                         registers_vocabulary_filepath=None,
                         data_define_vocabulary_filepath=None,
                         jcc_vocabulary_filepath=None):
+        """
+        Loads the predefined vocabulary to memory. By default, various vocabulary files are provided but this might be
+        modified by the final user depending on their objectives
+
+        Parameters
+        ----------
+            opcodes_vocabulary_filepath: str
+                Filepath of the file containing the opcodes vocabulary
+            registers_vocabulary_filepath: str
+                Filepath of the file containing the registers vocabulary
+            data_define_vocabulary_filepath: str
+                Filepath of the file containing the data define directives vocabulary
+            jcc_vocabulary_filepath: str
+                Filepath of the file containing the jump instructions vocabulary
+         """
         # x86 opcodes
         if opcodes_vocabulary_filepath is not None and os.path.isfile(opcodes_vocabulary_filepath):
             with open(opcodes_vocabulary_filepath) as opcodes_file:
@@ -76,9 +96,9 @@ class AssemblyLanguageInstructionsParser(object):
 
     def print_nonprocessed_statements(self):
         """
-        This piece of code is used to get those lines that are not being processed from the asm file. In consequence,
-        the data is lost forever...
-        :return:
+        This piece of code is used to get those lines that are not being processed from the asm file.  Data not useful.
+        In consequence, the data is lost forever...
+        This function is mostly used for debugging purposes
         """
         try:
             with open(self.pe_filepath, "r", encoding="ISO-8859-1") as input_file:
@@ -122,11 +142,19 @@ class AssemblyLanguageInstructionsParser(object):
                 output_file.write("{};{}".format(line[0], line[1]))
 
     def extract_assembly_language_statements(self):
+        """
+        Preprocesses the assembly language source code and retrieves its assembly language statements
+
+        Return
+        ---------
+            statements: list
+                List of assembly language statements
+        """
         try:
             with open(self.pe_filepath, "r", encoding = "ISO-8859-1") as input_file:
                 statements = []
                 lines = input_file.readlines()
-                print("{}; Length: {}".format(self.pe_filepath, len(lines)))
+                #print("{}; Length: {}".format(self.pe_filepath, len(lines)))
                 for line in lines:
                     try:
                         x86_statement = self.extract_statement(line)
@@ -134,13 +162,13 @@ class AssemblyLanguageInstructionsParser(object):
                             statements.append(x86_statement)
                     except TypeError as e:
                         continue
-                print("Statements: {}".format(len(statements)))
+                #print("Statements: {}".format(len(statements)))
             return statements
         except TypeError as e:
             with open(self.pe_filepath, "r") as input_file:
                 statements = []
                 lines = input_file.readlines()
-                print("{}; Length: {}".format(self.pe_filepath, len(lines)))
+                #print("{}; Length: {}".format(self.pe_filepath, len(lines)))
                 for line in lines:
                     try:
                         x86_statement = self.extract_statement(line)
@@ -148,16 +176,18 @@ class AssemblyLanguageInstructionsParser(object):
                             statements.append(x86_statement)
                     except TypeError as e:
                         continue
-            print("Statements: {}".format(len(statements)))
+            #print("Statements: {}".format(len(statements)))
             return statements
 
-
-    def extract_statement(self, line):
+    def extract_statement(self, line: str):
         """
-        :param line:
-        :return:
-        """
+        Extracts the information of a particular assembly language statement
 
+        Return
+        ---------
+            statement: x86Instr
+                Assembly language instruction
+        """
         mem_tokens = ["unk_",
                       "sub_",
                       "loc_",
@@ -320,6 +350,20 @@ class AssemblyLanguageInstructionsParser(object):
         return None
 
     def get_clean_asm_statement(self, asm_statement):
+        """
+        Remove unwanted assembly language statements.
+
+        Parameter
+        ---------
+            asm_statement: x86Instr
+                Assembly language statement
+
+        Return
+        ---------
+            asm_statement: x86Instr
+                Assembly language statement
+        """
+
         # Remove weird statements
         if asm_statement[0] != ';':
             # Remove comments

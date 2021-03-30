@@ -9,22 +9,20 @@ sys.path.append("../")
 
 
 class HexParser:
-    def __init__(self):
-        self.hex_filepath = None
-        self.hex_values = None
-        self.int_values = None
-        self.structural_entropy = None
-        self.grayscale_img = None
-        self.metadata = None
-        self.byte_unigram_features = None
-        self.entropy_features = None
-        self.haralick_features = None
-        self.lbp_features = None
+    def __init__(self, hex_filepath: str):
+        """
+        Constructor method
 
-    def load_hexadecimal_file(self, hex_filepath):
+        Parameters
+        ----------
+         hex_filepath: str
+             Filepath of the hexadecimal file
+        """
         if not os.path.isfile(hex_filepath):
             raise IOError
         self.hex_filepath = hex_filepath
+
+        # processed values
         self.hex_values = None
         self.int_values = None
         self.structural_entropy = None
@@ -35,10 +33,16 @@ class HexParser:
         self.haralick_features = None
         self.lbp_features = None
 
-    def extract_hex_values(self):
+
+    def extract_hex_values(self) -> list:
         """
         It returns a list of the hexadecimal values that compose the hexadecimal representation of a binary file.
         Hexadecimal values range from [0, FF]+'?' and '??'.
+
+        Return
+        ------
+            hex_values: list
+                List of hexadecimal values
         :return: list of hex values
         """
         hex_values = []

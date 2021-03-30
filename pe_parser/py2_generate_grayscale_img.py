@@ -3,6 +3,14 @@ import numpy as np
 import argparse
 
 def convert_hex_values_to_img_python2(hex_filepath):
+    """
+    Converts the hexadecimal values representing an executable's binary content into a grayscale image.
+
+    Parameters
+    ----------
+    hex_filepath: str
+        Filepath containing the hexadecimal representation of the executable's binary content.
+    """
     with open(hex_filepath) as hex_file:
         # Extract hex values
         hex_array = []

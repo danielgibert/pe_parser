@@ -1,5 +1,8 @@
 
 class x86Type:
+    """"
+    Types of assembly language statements
+    """
     NORMAL = 0
     DATA_DEFINE = 1
     JMP_JCC = 2

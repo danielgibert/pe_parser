@@ -9,22 +9,20 @@ import array
 
 
 class AssemblyParser:
-    def __init__(self):
-        self.mnemonics = None
-        self.asm_filepath = None
-        self.metadata_features = None
-        self.symbol_features = None
-        self.register_features = None
-        self.api_features = None
-        self.misc_features = None
-        self.section_features = None
-        self.data_define_features = None
-        self.opcode_features = None
+    def __init__(self, asm_filepath: str):
+        """
+       Constructor method
 
-    def load_asm_file(self, asm_filepath):
+       Parameters
+       ----------
+        asm_filepath: str
+            Filepath of the assembly language source code file
+       """
         if not os.path.isfile(asm_filepath):
             raise IOError
         self.asm_filepath = asm_filepath
+
+        # processed values
         self.metadata_features = None
         self.symbol_features = None
         self.register_features = None
@@ -34,8 +32,25 @@ class AssemblyParser:
         self.data_define_features = None
         self.opcode_features = None
 
-    def extract_assembly_language_source_code(self, asm_filepath):
-        parser = AssemblyLanguageInstructionsParser(asm_filepath)
+    def extract_assembly_language_source_code(self, asm_filepath=None):
+        """
+        Extracts a compressed representation of the assembly language source code.
+
+        Parameters
+        ----------
+            asm_filepath: str
+                Filepath of the assembly language source code file of an executable
+
+        Return
+        ----------
+            source_code: AssemblyLanguageSourceCode
+                Intermediate representation of the assembly language source code of an executable
+
+        """
+        if asm_filepath == None:
+            parser = AssemblyLanguageInstructionsParser(self.asm_filepath)
+        else:
+            parser = AssemblyLanguageInstructionsParser(asm_filepath)
         parser.load_vocabulary()
         self.mnemonics_vocabulary = parser.mnemonics_vocabulary
         self.size_directives_vocabulary = parser.size_directives_vocabulary
@@ -47,17 +62,25 @@ class AssemblyParser:
         self.source_code = AssemblyLanguageSourceCode(x86_instructions=assembly_language_statements)
         return self.source_code
 
-    def clean_assembly_language_statements(self, assembly_language_statements):
+    def clean_assembly_language_statements(self, assembly_language_statements: list):
         """
-        Remove 'stop_line' tokens if they appear in subsequences of length > 1
-        :param assembly_language_statements:
-        :return:
+        Remove/clean unwanted assembly language statements
+
+        Parameters
+        ----------
+            assembly_language_statements: list
+                List of assembly language statements
+        Return
+        ----------
+            reduced_assembly_language_statements: list
+                Filtered list of assembly language statements
         """
         reduced_assembly_language_statements = []
         last_instruction = None
         for i in range(len(assembly_language_statements)):
             if assembly_language_statements[i].type != x86Type.NOT_A_STATEMENT:
-                if assembly_language_statements[i].instruction_statement[0] == 'stop_line' and assembly_language_statements[i].instruction_statement[0] == last_instruction:
+                if assembly_language_statements[i].instruction_statement[0] == 'stop_line' and \
+                        assembly_language_statements[i].instruction_statement[0] == last_instruction:
                     continue
                 else:
                     reduced_assembly_language_statements.append(assembly_language_statements[i])
@@ -67,7 +90,19 @@ class AssemblyParser:
                 last_instruction = assembly_language_statements[i].instruction_statement
         return reduced_assembly_language_statements
 
-    def get_opcodes_data_as_list(self, vocabulary_mapping):
+    def get_opcodes_data_as_list(self, vocabulary_mapping: dict):
+        """
+        Extracts the list of opcodes from the assembly language instructions of a PE file.
+
+        Parameters
+        ----------
+            vocabulary_mapping: dict
+                Dictionary containing a mapping between opcodes and IDs
+        Return
+        ---------
+            opcodes: list
+                List of opcodes
+        """
         opcodes = []
         for x86_instruction in self.source_code.x86_instructions:
             if x86_instruction.type != x86Type.NOT_A_STATEMENT:
@@ -86,8 +121,12 @@ class AssemblyParser:
 
     def extract_asm_metadata_features(self):
         """
-        Extracts metadata information. That is, the size of the file, and the number of lines in the file.
-        :return: dict of features
+        Extracts metadata features, i.e. the size of the file, and the number of lines in the file.
+
+        Return
+        ---------
+            metadata_features: collections.OrderedDict()
+                Dictionary of features
         """
         metadata_features = collections.OrderedDict()
         statinfo = os.stat(self.asm_filepath)
@@ -104,7 +143,11 @@ class AssemblyParser:
     def extract_symbol_features(self):
         """
         Extract the frequencies of the following set of symbols (SYM) -,+,*,],[,?,@
-        :return: dict of features
+
+        Return
+        ---------
+            symbol_features: collections.OrderedDict()
+                Dictionary of features
         """
         symbol_features = collections.OrderedDict()
         symbols = [0] * 7
@@ -140,8 +183,15 @@ class AssemblyParser:
         Extract the frequences of a subset of 93 operation codes  based either on their commonness, or on their frequent
         use in malicious applications,
 
-        :param opcodes: str
-        :return: dict of features
+        Parameters
+        ----------
+            opcodes: list
+                List of opcodes
+
+        Return
+        ---------
+            opcode_features: collections.OrderedDict()
+                Dictionary of features
         """
         if opcodes is None:
             opcodes = []
@@ -175,6 +225,19 @@ class AssemblyParser:
         return opcode_features
 
     def extract_register_features(self, registers=None):
+        """
+        Extract the frequency of use of the registers in the assembly language source code of malware
+
+        Parameters
+        ----------
+            registers: list
+                List of registers
+
+        Return
+        ---------
+            opcode_features: collections.OrderedDict()
+                Dictionary of features
+        """
         if registers is None:
             registers = []
             with open(os.path.dirname(os.path.abspath(__file__))+"/vocabulary/registers.txt") as registers_file:
@@ -200,8 +263,15 @@ class AssemblyParser:
         """
         Extract the frequencies of a subset of 794 frequent APIs
 
-        :param APIs: str
-        :return: dict of features
+        Parameters
+        ----------
+            APIs: list
+                List of API functions
+
+        Return
+        ---------
+            api_features: collections.OrderedDict()
+                Dictionary of features
         """
         if APIs is None:
             apis = []
@@ -224,8 +294,16 @@ class AssemblyParser:
     def extract_MISC_features(self, keywords=None):
         """
         Extract the frequencies of a 95 manually chosen keywords (MISC) from the disassembled code
-        :param keywords: str
-        :return: dict of features
+
+        Parameters
+        ----------
+            keywords: list
+                List of keywords
+
+        Return
+        ---------
+            misc_features: collections.OrderedDict()
+                Dictionary of features
         """
         if keywords is None:
             keywords = []
@@ -249,7 +327,10 @@ class AssemblyParser:
         """
         Extract features from the PE sections
 
-        :return: dict of features
+        Return
+        ---------
+            section_features: collections.OrderedDict()
+                Dictionary of features
         """
         section_names = []
         with open(self.asm_filepath, "r", encoding="ISO-8859-1") as asm_file:
@@ -304,7 +385,10 @@ class AssemblyParser:
         """
         Extract features related to data defines dd, dw, etc.
 
-        :return: dict of features
+        Return
+        ---------
+            data_define_features: collections.OrderedDict()
+                Dictionary of features
         """
         dbCounter = 0
         ddCounter = 0
@@ -490,6 +574,14 @@ class AssemblyParser:
             # helper methods
 
     def convert_asm_to_img(self):
+        """
+        Converts the assembly language source code into a grayscale image.
+
+        Return
+        ---------
+            asm_img: np.array
+                Grayscale image representation of malware's assembly language source code
+        """
         import codecs
         f = codecs.open(self.asm_filepath, "rb")
         ln = os.path.getsize(self.asm_filepath)
@@ -503,6 +595,20 @@ class AssemblyParser:
         return self.asm_img
 
     def extract_pixel_intensities(self, num_pixels=800, asm_img=None):
+        """
+        Extracts the first 'num_pixels' pixels of the grayscale image representation of malware as features
+
+        Parameters
+        ----------
+            num_pixels: int
+                Number of pixels
+            asm_img: np.array
+                Grayscale image representation of the executable
+        Return
+        ---------
+            pixel_intensity_features: collections.OrderedDict
+                Dictionary of features
+        """
         self.pixel_intensity_features = collections.OrderedDict()
         if asm_img is None:
             asm_img = self.asm_img

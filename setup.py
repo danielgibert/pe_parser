@@ -9,9 +9,9 @@ setup(name='pe_parser',
       author_email='danigibert24@gmail.com',
       license='MIT',
       packages=['pe_parser'],
-      package_data={"pe_parser":["vocabulary/*.txt", "vocabulary/*.json", "*.md", "credentials/*"]},
+      package_data={"pe_parser":["vocabulary/*.txt", "vocabulary/*.json", "*.md"]},
       install_requires=requires,
       zip_safe=False,
       install_package_data=True,
-      python_requires='>=3.8'
+      python_requires='>=3.6.9'
       )
