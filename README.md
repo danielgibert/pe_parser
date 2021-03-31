@@ -7,11 +7,11 @@ feature engineering. The main features include:
 - Extraction of well-known features for malware detection and classification.
 - Tools to visualize malware as grayscale images or its structural entropy representation.
 
-For a complete description of PE Extractor capabilities check the [official documentation](https://readthedocs.org/dashboard/).
+For more information, check the documentation hosted on [Read the docs](https://readthedocs.org/dashboard/).
 
 ## Install
 
-Install PE Extractor with Python's pip package manager
+The easiest way to get PE Extractor is to install it with pip.
 
     pip install --upgrade pip
     pip install pe_extractor
@@ -22,7 +22,8 @@ You can also clone the repository as follows:
 
 ## License
 
-[LICENSE](./LICENSE)
+PE Extractor is free software made available under the MIT License. For details see the 
+[LICENSE](./LICENSE) file.
 
 
 ## Contact
