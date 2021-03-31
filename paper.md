@@ -26,8 +26,6 @@ bibliography: paper.bib
 
 # Summary
 
-Machine Learning for Malware Detection and Classification
-
 ``PE Extractor`` is a Python package for the preprocessing, the extraction of features and the visualization of Portable Executable files. 
 ``PE Extractor`` has been designed to provide a class-based and user-friendly interface for the extraction of well-known
 features commonly used for the task of malware detection and classification such as byte and opcode N-Grams, API function calls, 
@@ -96,7 +94,7 @@ A complete description of the aforementioned features is provided in [@Gibert:20
 
 ![assembly_view](./docs/ramnit_gatak_entropy_families_comparison_small.png)
 
-These kind of visualizations can be used to group malware into families based on their visual similarity [@Gibert:2018a] [@Gibert:2018b].
+This kind of visualizations can be used to group malware into families based on their visual similarity [@Gibert:2018a] [@Gibert:2018b].
 
 # References
 
