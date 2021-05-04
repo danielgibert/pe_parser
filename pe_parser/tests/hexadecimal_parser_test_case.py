@@ -56,3 +56,18 @@ class HexadecimalParserTestCase(unittest.TestCase):
         np.testing.assert_almost_equal(310371.0, lbp_features["BYTE_IMG_lbp_f0"], decimal=1)
         np.testing.assert_almost_equal(106889.0, lbp_features["BYTE_IMG_lbp_f1"], decimal=2)
         np.testing.assert_almost_equal(8126.0, lbp_features["BYTE_IMG_lbp_f2"], decimal=2)
+
+    def test_extract_1gram_features(self):
+        fdist = self.hexadecimal_parser.extract_ngram_features(1)
+        for k, v in fdist.items():
+            print(k,v)
+
+    def test_extract_2gram_features(self):
+        fdist = self.hexadecimal_parser.extract_ngram_features(2)
+        for k, v in fdist.items():
+            print(k, v)
+
+    def test_extract_3gram_features(self):
+        fdist = self.hexadecimal_parser.extract_ngram_features(3)
+        for k, v in fdist.items():
+            print(k, v)

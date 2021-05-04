@@ -71,5 +71,10 @@ def read_tokens_from_csv(csv_filepath, header):
         return {row[header] for row in reader}
 
 def save_fdist(fdist, output_filepath):
+    fdist_dict = dict()
+    for k,v in fdist.items():
+        key = ",".join([token for token in k])
+        fdist_dict[key] = v
+
     with open(output_filepath, "w") as output_file:
-        json.dump(dict(fdist), output_file)
+        json.dump(fdist_dict, output_file)

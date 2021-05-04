@@ -273,6 +273,22 @@ class HexParser:
         self.lbp_features = lbp_features
         return lbp_features
 
+    def extract_ngrams_freq(self, tokens, n):
+        tgs = nltk.ngrams(tokens, n)
+        fdist = nltk.FreqDist(tgs)
+        return fdist
+
+    def extract_ngram_features(self, N:int):
+        """
+
+        :param N:
+        :param opcodes:
+        :return:
+        """
+        hex_values = self.extract_hex_values()
+        fdist = self.extract_ngrams_freq(hex_values, N)
+        return fdist
+
 
 
 
