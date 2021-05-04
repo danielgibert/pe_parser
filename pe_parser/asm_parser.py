@@ -6,6 +6,7 @@ from pe_parser.assembly_language_instructions_parser import AssemblyLanguageInst
 from pe_parser.x86_asm_intermediate_representation import AssemblyLanguageSourceCode
 from pe_parser.x86_types import x86Type
 import array
+import nltk
 
 
 class AssemblyParser:
@@ -116,6 +117,14 @@ class AssemblyParser:
                     opcodes.append("UNK")
             else:
                 opcodes.append("NONE")
+        return opcodes
+
+    def get_opcodes(self):
+        opcodes = []
+        for x86_instruction in self.source_code.x86_instructions:
+            if x86_instruction.type != x86Type.NOT_A_STATEMENT:
+                if x86_instruction.instruction_statement[0] in self.mnemonics_vocabulary:
+                    opcodes.append(x86_instruction.instruction_statement[0])
         return opcodes
 
 
@@ -617,6 +626,21 @@ class AssemblyParser:
             self.pixel_intensity_features["ASM_PIXEL_{}th".format(i)] = flattened_img[i]
         return self.pixel_intensity_features
 
+    def extract_ngrams_freq(self, tokens, n):
+        tgs = nltk.ngrams(tokens, n)
+        fdist = nltk.FreqDist(tgs)
+        return fdist
+
+    def extract_ngram_features(self, N:int):
+        """
+
+        :param N:
+        :param opcodes:
+        :return:
+        """
+        opcodes = self.get_opcodes()
+        fdist = self.extract_ngrams_freq(opcodes, N)
+        return fdist
 
 
 

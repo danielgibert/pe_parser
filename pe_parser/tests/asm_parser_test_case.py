@@ -65,3 +65,22 @@ class AssemblyParserTestCase(unittest.TestCase):
         self.assertEqual(46, pixel_intensities["ASM_PIXEL_0th"])
         self.assertEqual(116, pixel_intensities["ASM_PIXEL_1th"])
         self.assertEqual(101, pixel_intensities["ASM_PIXEL_2th"])
+
+    def test_extract_1gram_features(self):
+        source_code = self.asm_parser.extract_assembly_language_source_code()
+        fdist = self.asm_parser.extract_ngram_features(1)
+        for k, v in fdist.items():
+            print(k,v)
+
+    def test_extract_2gram_features(self):
+        source_code = self.asm_parser.extract_assembly_language_source_code()
+        fdist = self.asm_parser.extract_ngram_features(2)
+        for k, v in fdist.items():
+            print(k,v)
+
+    def test_extract_3gram_features(self):
+        source_code = self.asm_parser.extract_assembly_language_source_code()
+        fdist = self.asm_parser.extract_ngram_features(3)
+        for k, v in fdist.items():
+            print(k,v)
+

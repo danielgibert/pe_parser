@@ -69,3 +69,7 @@ def read_tokens_from_csv(csv_filepath, header):
     with open(csv_filepath) as input_file:
         reader = csv.DictReader(input_file)
         return {row[header] for row in reader}
+
+def save_fdist(fdist, output_filepath):
+    with open(output_filepath, "w") as output_file:
+        json.dump(dict(fdist), output_file)
