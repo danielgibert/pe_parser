@@ -165,4 +165,4 @@ doi:10.1145/2016904.2016908.
 
 - [3] Gibert, D., Mateu, C., Planes, J., & Vicens, R. (2018). Classification of Malware by Using Structural Entropy on Convolutional Neural Networks. Proceedings of the AAAI Conference on Artificial Intelligence, 32(1). Retrieved from https://ojs.aaai.org/index.php/AAAI/article/view/11409
 
-- [4] Gibert, D., Chimera: bla bla bla
+- [4] Gibert, D., Planes, J., Mateu, C. Le, Q., Fusing Feature Engineering and Deep Learning: A Case Study for Malware Classification. Journal Expert Systems with Applications.
