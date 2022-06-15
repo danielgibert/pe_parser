@@ -1,4 +1,4 @@
-site_name: PE Extractor Documentation
+site_name: PE Parser Documentation
 nav:
   - Home: index.md
   - Contributors: contributors.md

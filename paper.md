@@ -1,5 +1,5 @@
 ---
-title: 'PE Extractor: A Python package for Portable Executable files processing'
+title: 'PE Parser: A Python package for Portable Executable files processing'
 
 tags:
   - Python
@@ -15,7 +15,7 @@ authors:
     affiliation: 1
     
 affiliations:
- - name: Postdoctoral researcher, University of Lleida
+ - name: Postdoctoral researcher, CeADAR, University College Dublin
    index: 1
    
 date: 1 April 2021
@@ -26,26 +26,26 @@ bibliography: paper.bib
 
 # Summary
 
-``PE Extractor`` is a Python package for the preprocessing, the extraction of features and the visualization of Portable Executable files. 
-``PE Extractor`` has been designed to provide a class-based and user-friendly interface for the extraction of well-known
+``PE Parser`` is a Python package for the preprocessing, the extraction of features and the visualization of Portable Executable files. 
+``PE Parser`` has been designed to provide a class-based and user-friendly interface for the extraction of well-known
 features commonly used for the task of malware detection and classification such as byte and opcode N-Grams, API function calls, 
 the frequency of use of the registers, characteristics of the Portable Executable file sections, etcetera [@Ahmadi:2016], [@Zhang:2106]. 
-In addition, ``PE Extractor``has various command line tools to visualize the executables as grayscale images [@Nataraj:2011], [@Gibert:2018a]
+In addition, ``PE Parser``has various command line tools to visualize the executables as grayscale images [@Nataraj:2011], [@Gibert:2018a]
 or as a stream of entropy values (structural entropy) [@Gibert:2018b].
 
-``PE Extractor`` has been designed to be used by both computer security researchers and by students in courses on malware analysis,
+``PE Parser`` has been designed to be used by both computer security researchers and by students in courses on malware analysis,
 machine learning and computer security. Currently, it has already been used in a number of scientific publications [@Gibert:2018a], [@Gibert:2018b], [@Gibert:2021] 
 
 
 # Statement of Need
 
-``PE Extractor`` is intended for scientists and researchers who would like to conduct research on malware detection. 
-``PE Extractor`` facilitates the extraction of well-known features from Portable Executable files that can be used to build
+``PE Parser`` is intended for scientists and researchers who would like to conduct research on malware detection. 
+``PE Parser`` facilitates the extraction of well-known features from Portable Executable files that can be used to build
 detection systems powered by machine learning. In addition, it provides command-line tools to visualize the executable
 as grayscale images or as a stream of entropy values.
 
 # Functionality
-``PE Extractor`` requires the user to provide a Portable Executable file in one of the following two formats:
+``PE Parser`` requires the user to provide a Portable Executable file in one of the following two formats:
 
 - Hexadecimal representation of its binary content. This representation represents the machine code as a sequence of 
 hexadecimal values. The first value indicates the starting address of the machine codes in the memory, and each 
@@ -62,7 +62,7 @@ and data. There are various tools to obtain the hexadecimal view of a binary fil
 ![assembly_view](./docs/asm_view.png)
 
 ## Feature Engineering
-Currently, ``PE Extractor`` can extract the following features:
+Currently, ``PE Parser`` can extract the following features:
 
 - Hexadecimal-based features.
     - Metadata features.
@@ -84,7 +84,7 @@ Currently, ``PE Extractor`` can extract the following features:
 A complete description of the aforementioned features is provided in [@Gibert:2021]. 
 
 ## Visualization Tools
-``PE Extractor`` provides various command-line tools to visualize the executables as follows:
+``PE Parser`` provides various command-line tools to visualize the executables as follows:
 
 - As grayscale images.
 
