@@ -1,5 +1,5 @@
 from setuptools import setup, find_packages
-requires = ['nltk', 'mahotas', 'matplotlib']
+requires = ['nltk', 'mahotas', 'matplotlib', 'jinja2<3.1.0']
 
 setup(name='pe_parser',
       version='0.1',
