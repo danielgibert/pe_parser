@@ -10,3 +10,4 @@ PE Parser was developed by Daniel Gibert during his PhD research to support the 
 
 - Gibert, D., Mateu, C., Planes, J., Marques-Silva, J. et al. Auditing static machine learning anti-malware tools against metamorphic attacks. J. Computers & Security 102, 102159 (2021).  https://doi.org/10.1016/j.cose.2020.102159
 
+- Gibert, D., Planes, J., Mateu, C. Le, Q. Fusing Feature Engineering and Deep Learning: A Case Study for Malware Classification. J. Expert Systems with Applications. 2022.

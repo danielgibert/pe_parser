@@ -1,5 +1,5 @@
-# PE Extractor
-PE Extractor is a Python (3.6+) library and a set of command-line tools for preprocessing Portable Executable (PE) files. The 
+# PE Parser
+PE Parser is a Python (3.6+) library and a set of command-line tools for preprocessing Portable Executable (PE) files. The 
 goal of the library is to provide an intermediate representation of the PE files that allow for easy manipulation and 
 feature engineering. The main features include:
 
@@ -11,18 +11,13 @@ For more information, check the documentation hosted on [Read the docs](https://
 
 ## Install
 
-The easiest way to get PE Extractor is to install it with pip.
+The easiest way to install PE Parser is to clone the repository as follows:
 
-    pip install --upgrade pip
-    pip install pe_extractor
-    
-You can also clone the repository as follows:
-
-    https://github.com/danielgibert/pe_extractor.git
+    git clone https://github.com/danielgibert/pe_parser.git
 
 ## License
 
-PE Extractor is free software made available under the MIT License. For details see the 
+PE Parser is free software made available under the MIT License. For details see the 
 [LICENSE](./LICENSE) file.
 
 

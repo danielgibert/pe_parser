@@ -1,5 +1,5 @@
 # Introduction
-PE Extractor is a Python (3.6+) library and a set of command-line tools for preprocessing Portable Executable (PE) files. The 
+PE Parser is a Python (3.6+) library and a set of command-line tools for preprocessing Portable Executable (PE) files. The 
 goal of the library is to provide an intermediate representation of the PE files that allow for easy manipulation and 
 feature engineering. The main features include:
 
@@ -8,7 +8,7 @@ feature engineering. The main features include:
 - Tools to visualize malware as grayscale images or its structural entropy representation.
 
 ## Visualization Tools
-PE Extractor includes various command-line tools that can be used to visualize malware as:
+PE Parser includes various command-line tools that can be used to visualize malware as:
 
 - Grayscale images.
 - Structural entropy. 
@@ -23,7 +23,7 @@ similar between them while distinct from those belonging to other families as de
 
 ![grayscale_mlw](./grayscale_images_kelihos_obfuscator_gatak.png)
 
-PE Extractor provides a command-line tool to convert and plot a PE file into a grayscale image:
+PE Parser provides a command-line tool to convert and plot a PE file into a grayscale image:
 
     python plot_hex_grayscale_img.py data/0A32eTdBKayjCWhZqDOQ.bytes 0A32eTdBKayjCWhZqDOQ.png
 
@@ -43,7 +43,7 @@ used to detect the presence of compressed and encrypted segments of code.
 
 Samples on the top of the image belong to the Ramnit family while those in the bottom belong to the Gatak family.
 
-PE Extractor provides a command-line tool to convert and plot a PE file into a stream of entropy values:
+PE Parser provides a command-line tool to convert and plot a PE file into a stream of entropy values:
 
     python plot_structural_entropy.py data/0A32eTdBKayjCWhZqDOQ.bytes 0A32eTdBKayjCWhZqDOQ.png --chunk_size 256
 
@@ -134,7 +134,7 @@ For a complete description of each feature category we refer the readers to [4] 
 
 ## Assembly Language Source Code Intermediate Representation
 
-In addition, the PE Extractor library can be used to generate an intermediate representation of the assembly language source 
+In addition, the PE Parser library can be used to generate an intermediate representation of the assembly language source 
 code of a Portable Executable file. This representation consists of a list of x86Instr objects, each one representing an assembly statement.
  .text:00401000 56							       push    esi
 
