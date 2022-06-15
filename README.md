@@ -14,6 +14,8 @@ For more information, check the documentation hosted on [Read the docs](https://
 The easiest way to install PE Parser is to clone the repository as follows:
 
     git clone https://github.com/danielgibert/pe_parser.git
+    cd pe_parser
+    pip install -e .
 
 ## License
 
