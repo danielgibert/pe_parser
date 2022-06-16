@@ -2,6 +2,8 @@
    sphinx-quickstart on Wed Jun 15 17:37:49 2022.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
+.. toctree::
+   :maxdepth: 2
 
 Welcome to Pe Parser's documentation!
 =====================================

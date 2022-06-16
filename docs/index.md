@@ -81,7 +81,7 @@ Example of usage:
     from pe_parser.hexadecimal_parser import HexParser
    
     hex_parser = HexParser(pe_filepath)
-    hex_values = self.hexadecimal_parser.extract_hex_values()
+    hex_values = hexadecimal_parser.extract_hex_values()
 
     metadata_features = hex_parser.extract_byte_metadata_features()
     unigram_features = hex_parser.extract_byte_unigram_features(hex_values)
@@ -118,17 +118,17 @@ Example of usage:
     from pe_parser.asm_parser import AssemblyParser
 
     asm_parser = AssemblyParser(filepath)
-    metadata_features = self.asm_parser.extract_asm_metadata_features()
-    symbol_features = self.asm_parser.extract_symbol_features()
-    opcode_features = self.asm_parser.extract_opcode_unigram_features()
-    register_features = self.asm_parser.extract_register_features()
-    api_features = self.asm_parser.extract_API_features()
-    misc_features = self.asm_parser.extract_MISC_features()
-    section_features = self.asm_parser.extract_section_features()
-    data_define_features = self.asm_parser.extract_data_define_features()
+    metadata_features = asm_parser.extract_asm_metadata_features()
+    symbol_features = asm_parser.extract_symbol_features()
+    opcode_features = asm_parser.extract_opcode_unigram_features()
+    register_features = asm_parser.extract_register_features()
+    api_features = asm_parser.extract_API_features()
+    misc_features = asm_parser.extract_MISC_features()
+    section_features = asm_parser.extract_section_features()
+    data_define_features = asm_parser.extract_data_define_features()
     
-    asm_img = self.asm_parser.convert_asm_to_img()
-    pixel_intensities = self.asm_parser.extract_pixel_intensities(num_pixels=800, asm_img=asm_img)
+    asm_img = asm_parser.convert_asm_to_img()
+    pixel_intensities = asm_parser.extract_pixel_intensities(num_pixels=800, asm_img=asm_img)
 
 For a complete description of each feature category we refer the readers to [4] and the references therein.
 
@@ -150,7 +150,7 @@ Example of usage:
     from pe_parser.asm_parser import AssemblyParser
 
     asm_parser = AssemblyParser(filepath)
-    source_code = self.asm_parser.extract_assembly_language_source_code()
+    source_code = asm_parser.extract_assembly_language_source_code()
 
   
 # Citations

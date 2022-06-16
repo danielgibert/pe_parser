@@ -7,7 +7,7 @@ feature engineering. The main features include:
 - Extraction of well-known features for malware detection and classification.
 - Tools to visualize malware as grayscale images or its structural entropy representation.
 
-For more information, check the documentation hosted on [Read the docs](https://readthedocs.org/dashboard/).
+For more information, check the documentation hosted on [Read the docs](https://pe-parser.readthedocs.io/en/latest/).
 
 ## Install
 
